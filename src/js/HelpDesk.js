@@ -1,15 +1,15 @@
-import Ticket from './Ticket';
-import templateEngine from './TemplateEngine';
-import { helpDeskAppTemplate, emptyContainer } from './template';
-import TicketAPI from './api/TicketAPI';
-import ModalWithForm from './ModalWithForm';
-import ModalDelete from './ModalDelete';
-import eventBus from './EventBus';
+import Ticket from "./Ticket";
+import templateEngine from "./TemplateEngine";
+import { helpDeskAppTemplate, emptyContainer } from "./template";
+import TicketAPI from "./api/TicketAPI";
+import ModalWithForm from "./ModalWithForm";
+import ModalDelete from "./ModalDelete";
+import eventBus from "./EventBus";
 
 export default class HelpDesk {
   constructor(container) {
     if (!(container instanceof HTMLElement)) {
-      throw new Error('This is not HTML element!');
+      throw new Error("This is not HTML element!");
     }
     this.container = container;
     this.api = new TicketAPI();
@@ -29,11 +29,11 @@ export default class HelpDesk {
   }
 
   subscribeOnEvents() {
-    eventBus.subscribe('submit', this.obSubmit, this);
-    eventBus.subscribe('deleteTicket', this.deleteTicket, this);
-    eventBus.subscribe('edit', this.editTicket, this);
-    eventBus.subscribe('delete', this.showModalDelete, this);
-    eventBus.subscribe('changeStatus', this.changeStatus, this);
+    eventBus.subscribe("submit", this.obSubmit, this);
+    eventBus.subscribe("deleteTicket", this.deleteTicket, this);
+    eventBus.subscribe("edit", this.editTicket, this);
+    eventBus.subscribe("delete", this.showModalDelete, this);
+    eventBus.subscribe("changeStatus", this.changeStatus, this);
   }
 
   bindToDOM() {
@@ -41,12 +41,12 @@ export default class HelpDesk {
   }
 
   registerEvents() {
-    const addButtonElement = this.container.querySelector('.ticket__add');
-    addButtonElement.addEventListener('click', () => this.modalWithForm.showModal('create'));
+    const addButtonElement = this.container.querySelector(".ticket__add");
+    addButtonElement.addEventListener("click", () => this.modalWithForm.showModal("create"));
   }
 
   get ticketContainer() {
-    return this.container.querySelector('.ticket__container');
+    return this.container.querySelector(".ticket__container");
   }
 
   renderTickets(data = []) {
@@ -61,16 +61,16 @@ export default class HelpDesk {
   }
 
   async obSubmit([data, type]) {
-    if (type === 'create') {
+    if (type === "create") {
       await this.api.create(data, (response) => {
         this.renderTickets(response);
       });
       return;
     }
-    if (type === 'edit') {
+    if (type === "edit") {
       const { id } = this.currentEditObject;
       await this.api.update(id, data, (response) => {
-        this.ticketContainer.textContent = '';
+        this.ticketContainer.textContent = "";
         this.renderTickets(response);
       });
       this.currentEditObject = null;
@@ -79,14 +79,14 @@ export default class HelpDesk {
 
   async editTicket(id) {
     this.currentEditObject = await this.api.get(id);
-    this.modalWithForm.showModal('edit', this.currentEditObject);
+    this.modalWithForm.showModal("edit", this.currentEditObject);
   }
 
   async changeStatus(id) {
     this.currentEditObject = await this.api.get(id);
     this.currentEditObject.status = !this.currentEditObject.status;
     await this.api.update(id, this.currentEditObject, (response) => {
-      this.ticketContainer.textContent = '';
+      this.ticketContainer.textContent = "";
       this.renderTickets(response);
     });
     this.currentEditObject = null;
@@ -94,7 +94,7 @@ export default class HelpDesk {
 
   async deleteTicket() {
     await this.api.delete(this.currentEditObject.id, (response) => {
-      this.ticketContainer.textContent = '';
+      this.ticketContainer.textContent = "";
       this.renderTickets(response);
     });
     this.currentEditObject = null;
