@@ -1,10 +1,10 @@
-import Entity from './Entity';
-import createRequest from './createRequest';
+import Entity from "./Entity";
+import createRequest from "./createRequest";
 
 export default class TicketAPI extends Entity {
   list(callback) {
     const options = {
-      method: 'GET',
+      method: "GET",
       query: `method=allTickets`,
       callback,
     };
@@ -13,7 +13,7 @@ export default class TicketAPI extends Entity {
 
   get(id, callback) {
     const options = {
-      method: 'GET',
+      method: "GET",
       query: `method=ticketById&id=${id}`,
       callback,
     };
@@ -22,7 +22,7 @@ export default class TicketAPI extends Entity {
 
   create(data, callback) {
     const options = {
-      method: 'POST',
+      method: "POST",
       query: `method=createTicket`,
       data,
       callback,
@@ -32,7 +32,7 @@ export default class TicketAPI extends Entity {
 
   update(id, data, callback) {
     const options = {
-      method: 'POST',
+      method: "POST",
       query: `method=updateById&id=${id}`,
       data,
       callback,
@@ -42,7 +42,7 @@ export default class TicketAPI extends Entity {
 
   delete(id, callback) {
     const options = {
-      method: 'GET',
+      method: "GET",
       query: `method=deleteById&id=${id}`,
       callback,
     };
