@@ -4,7 +4,7 @@ class EventBus {
   }
 
   subscribe(event, handler, context) {
-    if (typeof context === 'undefined') {
+    if (typeof context === "undefined") {
       context = handler;
     }
     this.handlers.push({
