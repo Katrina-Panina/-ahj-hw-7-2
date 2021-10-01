@@ -1,5 +1,5 @@
-import templateEngine from './TemplateEngine';
-import eventBus from './EventBus';
+import templateEngine from "./TemplateEngine";
+import eventBus from "./EventBus";
 
 export default class Ticket {
   constructor({ id, name, description, status, created }) {
@@ -16,93 +16,93 @@ export default class Ticket {
       .toLocaleTimeString()
       .slice(0, 5)}`;
     return templateEngine.generate({
-      type: 'div',
+      type: "div",
       attr: {
-        class: ['ticket'],
+        class: ["ticket"],
         'data-id': this.id,
       },
       content: [
         {
-          type: 'div',
+          type: "div",
           attr: {
-            class: ['ticket__body'],
+            class: ["ticket__body"],
           },
           content: [
             {
-              type: 'div',
+              type: "div",
               attr: {
-                class: ['ticket__status'],
+                class: ["ticket__status"],
               },
               listener: {
-                type: 'click',
+                type: "click",
                 cb: (event) => this.changeStatus(event),
               },
               content: {
-                type: 'span',
+                type: "span",
                 attr: {
-                  class: this.status ? ['done'] : [],
+                  class: this.status ? ["done"] : [],
                 },
-                content: '',
+                content: "",
               },
             },
             {
-              type: 'div',
+              type: "div",
               attr: {
-                class: ['ticket__name'],
+                class: ["ticket__name"],
               },
               listener: {
-                type: 'click',
+                type: "click",
                 cb: this.showDescription,
               },
               content: this.name,
             },
             {
-              type: 'div',
+              type: "div",
               attr: {
-                class: ['ticket__created'],
+                class: ["ticket__created"],
               },
               content: date,
             },
             {
-              type: 'div',
+              type: "div",
               attr: {
-                class: ['ticket__edit'],
+                class: ["ticket__edit"],
               },
               listener: {
-                type: 'click',
+                type: "click",
                 cb: (event) => this.editTicket(event),
               },
               content: {
-                type: 'span',
+                type: "span",
                 attr: {
-                  class: ['ticket__edit-img'],
+                  class: ["ticket__edit-img"],
                 },
-                content: '',
+                content: "",
               },
             },
             {
-              type: 'div',
+              type: "div",
               attr: {
-                class: ['ticket__delete'],
+                class: ["ticket__delete"],
               },
               listener: {
-                type: 'click',
+                type: "click",
                 cb: (event) => this.deleteTicket(event),
               },
               content: {
-                type: 'span',
+                type: "span",
                 attr: {
-                  class: ['ticket__delete-img'],
+                  class: ["ticket__delete-img"],
                 },
-                content: '',
+                content: "",
               },
             },
           ],
         },
         {
-          type: 'div',
+          type: "div",
           attr: {
-            class: ['ticket__description', 'hidden'],
+            class: ["ticket__description", "hidden"],
           },
           content: this.description,
         },
@@ -111,26 +111,26 @@ export default class Ticket {
   }
 
   showDescription(event) {
-    const parentElement = event.target.closest('.ticket');
-    const descElement = parentElement.querySelector('.ticket__description');
-    descElement.classList.toggle('hidden');
+    const parentElement = event.target.closest(".ticket");
+    const descElement = parentElement.querySelector(".ticket__description");
+    descElement.classList.toggle("hidden");
   }
 
   changeStatus(event) {
-    const parentElement = event.target.closest('.ticket');
+    const parentElement = event.target.closest(".ticket");
     const { id } = parentElement.dataset;
-    eventBus.emit('changeStatus', id);
+    eventBus.emit("changeStatus", id);
   }
 
   editTicket(event) {
-    const parentElement = event.target.closest('.ticket');
+    const parentElement = event.target.closest(".ticket");
     const { id } = parentElement.dataset;
-    eventBus.emit('edit', id);
+    eventBus.emit("edit", id);
   }
 
   deleteTicket(event) {
-    const parentElement = event.target.closest('.ticket');
+    const parentElement = event.target.closest(".ticket");
     const { id } = parentElement.dataset;
-    eventBus.emit('delete', id);
+    eventBus.emit("delete", id);
   }
 }
