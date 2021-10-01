@@ -19,7 +19,7 @@ export default class Ticket {
       type: "div",
       attr: {
         class: ["ticket"],
-        'data-id': this.id,
+        "data-id": this.id,
       },
       content: [
         {
