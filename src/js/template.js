@@ -1,43 +1,43 @@
 export const helpDeskAppTemplate = {
-  type: 'div',
+  type: "div",
   attr: {
-    class: ['container'],
+    class: ["container"],
   },
   content: [
     {
-      type: 'div',
+      type: "div",
       attr: {
-        class: ['ticket__header'],
+        class: ["ticket__header"],
       },
       content: {
-        type: 'h1',
+        type: "h1",
         attr: {
-          class: ['ticket__title'],
+          class: ["ticket__title"],
         },
-        content: 'Help Desk',
+        content: "Help Desk",
       },
     },
     {
-      type: 'div',
+      type: "div",
       attr: {
-        class: ['ticket__add'],
+        class: ["ticket__add"],
       },
-      content: 'Add ticket',
+      content: "Add ticket",
     },
     {
-      type: 'div',
+      type: "div",
       attr: {
-        class: ['ticket__container'],
+        class: ["ticket__container"],
       },
-      content: '',
+      content: "",
     },
   ],
 };
 
 export const emptyContainer = {
-  type: 'div',
+  type: "div",
   attr: {
-    class: ['ticket__empty'],
+    class: ["ticket__empty"],
   },
-  content: 'There are no tickets at the moment.',
+  content: "There are no tickets at the moment.",
 };
